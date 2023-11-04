@@ -2,7 +2,7 @@
 
 //When question answered correctly should show a sign correct and play correct sound
 
-//When question answered incorrectly should show a sign incorrect and play incorrect sound
+//When question answered incorrectly should show a sign incorrect and play incorrect sounds
 var questions = [
     {
         question: "Guitar is considered to be a: ",

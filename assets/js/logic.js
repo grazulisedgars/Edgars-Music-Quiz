@@ -4,6 +4,18 @@ var choicesEl = document.querySelector("#choices");
 var timeEl = document.querySelector(".timer");
 
 // Clicking the “Start the Quiz” button displays a series of question 
+var currentQuestionIndex = 0;
+
+buttonEl.addEventListener("click", function() {
+    var correctAnswers = 0;
+
+//Hide the start screen and show the questions container 
+document.getElementById("start-screen").classList.add("hide");
+questionsEl.classList.remove("hide");
+
+setTime()
+});
+
 
 // Once the quiz begins, a countdown timer starts 
 
@@ -25,7 +37,7 @@ function setTime() {
 
     }, 1000);
 }
-setTime();
+// setTime();
 
 // If a question is answered incorrectly, additional time is subtracted from the timer 
 
