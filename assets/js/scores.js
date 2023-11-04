@@ -1,0 +1,1 @@
+//This JS file should keep the scores of the players results
