@@ -37,7 +37,6 @@ function setTime() {
 
     }, 1000);
 }
-// setTime();
 
 // If a question is answered incorrectly, additional time is subtracted from the timer 
 
