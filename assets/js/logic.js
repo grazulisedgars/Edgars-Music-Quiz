@@ -3,19 +3,59 @@ var questionsEl = document.querySelector("#questions");
 var choicesEl = document.querySelector("#choices");
 var timeEl = document.querySelector(".timer");
 
-// Clicking the “Start the Quiz” button displays a series of question 
+
 var currentQuestionIndex = 0;
+var correctAnswer = 0;
 
+// Clicking the “Start the Quiz” button displays a series of question 
 buttonEl.addEventListener("click", function() {
-    var correctAnswers = 0;
-
+    
 //Hide the start screen and show the questions container 
 document.getElementById("start-screen").classList.add("hide");
 questionsEl.classList.remove("hide");
 
+displayQuestion()
 setTime()
 });
 
+function displayQuestion () {
+    if (currentQuestionIndex < questions.length) {
+    //Gets the current question
+    var currentQuestion = questions[currentQuestionIndex];
+
+    //Update question title
+    document.getElementById("question-title").textContent = currentQuestion.question;
+    
+    //Clear any previous choices 
+    choicesEl.innerHTML = " ";
+
+   // Create and display answer choices
+   for (var i = 0; i < currentQuestion.answers.length; i++) {
+    var answer = currentQuestion.answers[i];
+    var choiceButton = document.createElement("button");
+    choiceButton.textContent = answer;
+
+    choiceButton.addEventListener("click", function() {
+      // Check if the clicked answer is correct
+      // Need to add some text that answer was correct and add sound effect
+      if (i === currentQuestion.correctAnswer) {
+        correctAnswer++;
+      } 
+      //else need to add that the answer was wrong and subtract time
+      
+
+      // Move to the next question
+      currentQuestionIndex++;
+
+      // Display the next question or end the quiz
+      displayQuestion();
+    });
+
+    //Responsible for creating choice buttons
+    choicesEl.appendChild(choiceButton);
+  };
+    }
+}
 
 // Once the quiz begins, a countdown timer starts 
 
@@ -56,12 +96,3 @@ function setTime() {
 // THEN the game is over
 // WHEN the game is over
 // THEN I can save my initials and score
-
-//iterate over the list of questions 
-//if a user clicked on an answer 
-//compare the value to the correct answer 
-// if the thing user answered is correct 
-// display correct
-//else
-//display incorrect 
-//subtract time 
