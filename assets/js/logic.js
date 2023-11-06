@@ -44,13 +44,22 @@ function displayQuestion() {
                 if (selectedAnswer === currentQuestion.answers[currentQuestion.correctAnswerIndex]) {
                     correctAnswer++;
                     score += 10;
+                    // Line 48 provided by ASK BCS learning assistant
+                    document.getElementById("feedback").style.display = "block";
                     document.getElementById("feedback").textContent = "Correct";
                 }
                 //else need to add that the answer was wrong and subtract time
                 else {
+                    // Line 54 provided by ASK BCS learning assistant
+                    document.getElementById("feedback").style.display = "block";
                     document.getElementById("feedback").textContent = "Incorrect";
                     secondsLeft -= 10;
                 }
+                //This setTimeOut Function was provided by AskBCS Learning assistant
+                setTimeout(() => {
+                    document.getElementById("feedback").style.display = "none";
+                  
+                  }, 1000);
                 // Move to the next question
                 currentQuestionIndex++;
 
@@ -64,6 +73,7 @@ function displayQuestion() {
     } else {
         // The quiz is over
         endQuiz(score);
+        document.getElementById("feedback").style.display = "none";
     }
 }
 
