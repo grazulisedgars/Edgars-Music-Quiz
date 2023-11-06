@@ -2,6 +2,7 @@ var buttonEl = document.querySelector("#start");
 var questionsEl = document.querySelector("#questions");
 var choicesEl = document.querySelector("#choices");
 var timeEl = document.querySelector(".timer");
+var submitEl = document.querySelector("#submit");
 
 
 var currentQuestionIndex = 0;
@@ -90,6 +91,12 @@ function endQuiz(score) {
 
     // Display the final score
     document.getElementById("final-score").textContent = score;
+
+    
+    submitEl.addEventListener("click", function (){
+        window.location.href = "highscores.html"
+    })
+    
 }
 
 // Once the quiz begins, a countdown timer starts 
@@ -110,8 +117,6 @@ function setTime() {
         }
     }, 1000);
 }
-// If a question is answered incorrectly, additional time is subtracted from the timer 
 
-// The game ends when all questions have been answered or the timer reaches zero 
 
 // After the game ends,  the user can save their initials and score to a high scores view using local storage 
