@@ -118,8 +118,8 @@ function setTime() {
 //This code below is provided by ASK BCS Learning Assistant
 
 let initials = document.getElementById("initials");
+
 function saveScore() {
-  // Check if local storage is available
   // Get existing highscores or initialize an empty array
   var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
