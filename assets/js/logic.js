@@ -6,94 +6,100 @@ var timeEl = document.querySelector(".timer");
 
 var currentQuestionIndex = 0;
 var correctAnswer = 0;
+var score = 0;
+var secondsLeft = 60;
 
 // Clicking the “Start the Quiz” button displays a series of question 
-buttonEl.addEventListener("click", function() {
-    
-//Hide the start screen and show the questions container 
-document.getElementById("start-screen").classList.add("hide");
-questionsEl.classList.remove("hide");
+buttonEl.addEventListener("click", function () {
 
-displayQuestion()
-setTime()
+    //Hide the start screen and show the questions container 
+    document.getElementById("start-screen").classList.add("hide");
+    questionsEl.classList.remove("hide");
+
+    setTime()
+    displayQuestion()
 });
 
-function displayQuestion () {
+function displayQuestion() {
     if (currentQuestionIndex < questions.length) {
-    //Gets the current question
-    var currentQuestion = questions[currentQuestionIndex];
+        //Gets the current question
+        var currentQuestion = questions[currentQuestionIndex];
 
-    //Update question title
-    document.getElementById("question-title").textContent = currentQuestion.question;
-    
-    //Clear any previous choices 
-    choicesEl.innerHTML = " ";
+        //Update question title
+        document.getElementById("question-title").textContent = currentQuestion.question;
 
-   // Create and display answer choices
-   for (var i = 0; i < currentQuestion.answers.length; i++) {
-    var answer = currentQuestion.answers[i];
-    var choiceButton = document.createElement("button");
-    choiceButton.textContent = answer;
+        //Clear any previous choices 
+        choicesEl.innerHTML = " ";
 
-    choiceButton.addEventListener("click", function() {
-      // Check if the clicked answer is correct
-      // Need to add some text that answer was correct and add sound effect
-      if (i === currentQuestion.correctAnswer) {
-        correctAnswer++;
-      } 
-      //else need to add that the answer was wrong and subtract time
-      
+        // Create and display answer choices
+        for (var i = 0; i < currentQuestion.answers.length; i++) {
+            var answer = currentQuestion.answers[i];
+            var choiceButton = document.createElement("button");
+            choiceButton.textContent = answer;
 
-      // Move to the next question
-      currentQuestionIndex++;
+            choiceButton.addEventListener("click", function (event) {
+                var selectedAnswer = event.target.textContent;
 
-      // Display the next question or end the quiz
-      displayQuestion();
-    });
+                // Need to add some text that answer was correct and add sound effect
+                if (selectedAnswer === currentQuestion.answers[currentQuestion.correctAnswerIndex]) {
+                    correctAnswer++;
+                    score += 10;
+                    document.getElementById("feedback").textContent = "Correct";
+                }
+                //else need to add that the answer was wrong and subtract time
+                else {
+                    document.getElementById("feedback").textContent = "Incorrect";
+                    secondsLeft -= 10;
+                }
+                // Move to the next question
+                currentQuestionIndex++;
 
-    //Responsible for creating choice buttons
-    choicesEl.appendChild(choiceButton);
-  };
+                // Display the next question or end the quiz
+                displayQuestion();
+            });
+
+            //Responsible for creating choice buttons
+            choicesEl.appendChild(choiceButton);
+        };
     } else {
         // The quiz is over
-        endQuiz(correctAnswer);
-      }
+        endQuiz(score);
     }
-    
-    function endQuiz(score) {
-      // Hide the questions container
-      questionsEl.classList.add("hide");
-    
-      // Show the end screen
-      var endScreen = document.getElementById("end-screen");
-      endScreen.classList.remove("hide");
-    
-      // Display the final score
-      document.getElementById("final-score").textContent = score;
+}
 
-    }
+function endQuiz(score) {
+    // Stop the timer
+    clearInterval(timerInterval);
+
+    // Hide the questions container
+    questionsEl.classList.add("hide");
+
+    // Show the end screen
+    var endScreen = document.getElementById("end-screen");
+    endScreen.classList.remove("hide");
+
+    // Display the final score
+    document.getElementById("final-score").textContent = score;
+}
 
 // Once the quiz begins, a countdown timer starts 
 
-var secondsLeft = 60;
+var timerInterval;
 
 function setTime() {
-    // Sets interval in variable
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
+    // Set interval in variable
+    timerInterval = setInterval(function () {
         timeEl.textContent = secondsLeft;
-
-        if (secondsLeft === 0) {
-            // Stops execution of action at set interval
+        if (secondsLeft <= 0) {
+            // Stop the timer and end the quiz
             clearInterval(timerInterval);
-            timeEl.textContent = " ";
-            // Calls function to create and append image
-            sendMessage();
+            timeEl.textContent = "0";
+            endQuiz(score);
+        } else {
+            secondsLeft--; // Decrement the time
         }
-
     }, 1000);
 }
-
 // If a question is answered incorrectly, additional time is subtracted from the timer 
 
 // The game ends when all questions have been answered or the timer reaches zero 
