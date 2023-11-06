@@ -92,11 +92,6 @@ function endQuiz(score) {
     // Display the final score
     document.getElementById("final-score").textContent = score;
 
-    
-    submitEl.addEventListener("click", function (){
-        window.location.href = "highscores.html"
-    })
-    
 }
 
 // Once the quiz begins, a countdown timer starts 
@@ -118,5 +113,24 @@ function setTime() {
     }, 1000);
 }
 
-
 // After the game ends,  the user can save their initials and score to a high scores view using local storage 
+
+//This code below is provided by ASK BCS Learning Assistant
+
+let initials = document.getElementById("initials");
+function saveScore() {
+  // Check if local storage is available
+  // Get existing highscores or initialize an empty array
+  var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+
+  // Add the user's initials and score to the highscores array
+  highscores.push({ initials: initials.value, score: score });
+
+  // Store the updated highscores array in local storage
+  window.localStorage.setItem("highscores", JSON.stringify(highscores));
+}
+
+submitEl.addEventListener("click", (event) => {
+  saveScore();
+  window.location.href = "highscores.html";
+});
