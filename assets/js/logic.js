@@ -9,6 +9,7 @@ var currentQuestionIndex = 0;
 var correctAnswer = 0;
 var score = 0;
 var secondsLeft = 60;
+var scoreInitials = document.getElementById("initials");
 
 // Clicking the “Start the Quiz” button displays a series of question 
 buttonEl.addEventListener("click", function () {
@@ -117,14 +118,12 @@ function setTime() {
 
 //This code below is provided by ASK BCS Learning Assistant
 
-let initials = document.getElementById("initials");
-
 function saveScore() {
   // Get existing highscores or initialize an empty array
   var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
   // Add the user's initials and score to the highscores array
-  highscores.push({ initials: initials.value, score: score });
+  highscores.push({ initials: scoreInitials.value, score: score });
 
   // Store the updated highscores array in local storage
   window.localStorage.setItem("highscores", JSON.stringify(highscores));

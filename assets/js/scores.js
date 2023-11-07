@@ -1,15 +1,33 @@
-var highscoresEl = document.querySelector("#highscores");
+var highScoresEl = document.querySelector("#highscores");
+var clearHighScoresEl = document.querySelector("#clear");
 
-// Still need to figure out this part
 
 // use the “getItem” function to the the current highscores data
+function displayHighScores() {
+    var highScoresEl = document.getElementById("highscores");
 
-// Then you can use a loop to display each entry
+    var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
-// like you did with the questions
+    highscores.sort(function(a,b) {
+        return b.score - a.score;
+    });
 
-// document.getElementById("highscores").textContent = highscoresEl
+    highScoresEl.innerHTML = " ";
 
+    // Then you can use a loop to display each entry
+    for (var i = 0; i < highscores.length; i++) {
+        var entry = highscores[i];
+        var listItem = document.createElement("li");
+        listItem.textContent = entry.scoreInitials + ": " + entry.score;
+        highScoresEl.appendChild(listItem);
+    }
 
-// var highscores = localStorage.getItem("highscores");
-// console.log(highscores);
+    //clears highscores once the button is clicked 
+    clearHighScoresEl.addEventListener("click", function (){
+        highScoresEl.innerHTML = "";
+        localStorage.removeItem("highscores");
+    })
+    
+}
+displayHighScores()
+
