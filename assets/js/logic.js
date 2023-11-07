@@ -12,7 +12,8 @@ var secondsLeft = 60;
 var scoreInitials = document.getElementById("initials");
 
 // Clicking the “Start the Quiz” button displays a series of question 
-buttonEl.addEventListener("click", function () {
+//The ? after submitEl was provided by learning assistant to fix error on console
+buttonEl?.addEventListener("click", function () {
 
     //Hide the start screen and show the questions container 
     document.getElementById("start-screen").classList.add("hide");
@@ -60,8 +61,8 @@ function displayQuestion() {
                 //This setTimeOut Function was provided by AskBCS Learning assistant
                 setTimeout(() => {
                     document.getElementById("feedback").style.display = "none";
-                  
-                  }, 1000);
+
+                }, 1000);
                 // Move to the next question
                 currentQuestionIndex++;
 
@@ -119,17 +120,18 @@ function setTime() {
 //This code below is provided by ASK BCS Learning Assistant
 
 function saveScore() {
-  // Get existing highscores or initialize an empty array
-  var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    // Get existing highscores or initialize an empty array
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-  // Add the user's initials and score to the highscores array
-  highscores.push({ initials: scoreInitials.value, score: score });
+    // Add the user's initials and score to the highscores array
+    highscores.push({ initials: scoreInitials.value, score: score });
 
-  // Store the updated highscores array in local storage
-  window.localStorage.setItem("highscores", JSON.stringify(highscores));
+    // Store the updated highscores array in local storage
+    window.localStorage.setItem("highscores", JSON.stringify(highscores));
 }
 
-submitEl.addEventListener("click", (event) => {
-  saveScore();
-  window.location.href = "highscores.html";
+//The ? after submitEl was provided by learning assistant to fix error on console
+submitEl?.addEventListener("click", (event) => {
+    saveScore();
+    window.location.href = "highscores.html";
 });

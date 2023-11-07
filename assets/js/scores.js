@@ -18,7 +18,7 @@ function displayHighScores() {
     for (var i = 0; i < highscores.length; i++) {
         var entry = highscores[i];
         var listItem = document.createElement("li");
-        listItem.textContent = entry.scoreInitials + ": " + entry.score;
+        listItem.textContent = entry.initials + ": " + entry.score;
         highScoresEl.appendChild(listItem);
     }
 
